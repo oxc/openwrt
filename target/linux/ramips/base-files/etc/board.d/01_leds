@@ -2,8 +2,9 @@
 
 . /lib/functions/uci-defaults.sh
 
-set_usb_led() {
-	ucidef_set_led_usbdev "usb" "USB" "${1}" "${2:-1-1}"
+set_mt7621_usb_led() {
+	ucidef_set_led_usbport "usb" "USB" "${1}" \
+		"usb1-port1" "usb1-port2" "usb2-port1"
 }
 
 set_wifi_led() {
@@ -23,7 +24,7 @@ sap-g3200u3|\
 sk-wb8|\
 w2914nsv2|\
 wf-2881)
-	set_usb_led "$boardname:green:usb"
+	set_mt7621_usb_led "$boardname:green:usb"
 	;;
 3g-6200n)
 	set_wifi_led "$boardname:amber:wlan"
@@ -299,7 +300,7 @@ netgear,r6120)
 	ucidef_set_led_wlan "wlan5g" "WiFi 5GHz" "$boardname:green:wlan5g" "phy1tpt"
 	;;
 newifi-d1)
-	set_usb_led "$boardname:red:status"
+	set_mt7621_usb_led "$boardname:red:status"
 	;;
 oy-0001)
 	ucidef_set_led_default "power" "power" "$boardname:green:power" "1"
@@ -311,7 +312,7 @@ pbr-m1)
 	ucidef_set_led_default "sys" "sys" "$boardname:blue:sys" "1"
 	;;
 d-team,newifi-d2)
-	set_usb_led "$boardname:blue:usb"
+	set_mt7621_usb_led "$boardname:blue:usb"
 	ucidef_set_led_switch "internet" "internet" "$boardname:amber:internet" "switch0" "0x10"
 	ucidef_set_led_netdev "wlan2g" "WiFi 2.4GHz" "$boardname:blue:wlan2g" "wlan0"
 	ucidef_set_led_netdev "wlan5g" "WiFi 5GHz" "$boardname:blue:wlan5g" "wlan1"
@@ -331,7 +332,7 @@ px-4885-8M)
 r6220)
 	ucidef_set_led_netdev "wan" "wan" "$boardname:green:wan" eth0.2
 	set_wifi_led "$boardname:green:wifi"
-	set_usb_led "$boardname:green:usb"
+	set_mt7621_usb_led "$boardname:green:usb"
 	;;
 re350-v1)
 	ucidef_set_led_netdev "wifi2g" "Wifi 2.4G" "$boardname:blue:wifi2G" "wlan0"
@@ -485,7 +486,7 @@ y1s)
 	;;
 youhua,wr1200js)
 	ucidef_set_led_switch "internet" "INTERNET" "$boardname:green:wan" "switch0" "0x01"
-	ucidef_set_led_usbdev "usb" "USB" "$boardname:blue:usb" "1-2"
+	set_mt7621_usb_led "$boardname:blue:usb"
 	ucidef_set_led_default "wps" "wps" "$boardname:blue:wps" "0"
 	;;
 zbt-ape522ii)
