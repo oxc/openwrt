@@ -344,6 +344,8 @@
 	};
 
 	xhci: xhci@1E1C0000 {
+		#address-cells = <1>;
+		#size-cells = <0>;
 		status = "okay";
 
 		compatible = "mediatek,mt8173-xhci";
@@ -356,6 +358,33 @@
 
 		interrupt-parent = <&gic>;
 		interrupts = <GIC_SHARED 22 IRQ_TYPE_LEVEL_HIGH>;
+
+		hub@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+
+			ohci_port1: port@1 {
+				reg = <1>;
+				#trigger-source-cells = <0>;
+			};
+
+			ehci_port1: port@2 {
+				reg = <2>;
+				#trigger-source-cells = <0>;
+			};
+		};
+
+		hub@2 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <2>;
+
+			xhci_port1: port@1 {
+				reg = <1>;
+				#trigger-source-cells = <0>;
+			};
+		};
 	};
 
 	gic: interrupt-controller@1fbc0000 {

@@ -40,10 +40,6 @@
 / {
 	compatible = "unielec,u7621-06", "mediatek,mt7621-soc";
 
-	aliases {
-		led-status = &led_status;
-	};
-
 	chosen {
 		bootargs = "console=ttyS0,115200";
 	};
@@ -76,16 +72,22 @@
 		led_status: status {
 			label = "u7621-06:green:status";
 			gpios = <&gpio0 10 GPIO_ACTIVE_LOW>;
+			trigger-sources = <&ohci_port1>;
+			linux,default-trigger = "usbport";
 		};
 
 		led4 {
 			label = "u7621-06:green:led4";
 			gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>;
+			trigger-sources = <&ehci_port1>;
+			linux,default-trigger = "usbport";
 		};
 
 		led5 {
 			label = "u7621-06:green:led5";
 			gpios = <&gpio0 12 GPIO_ACTIVE_HIGH>;
+			trigger-sources = <&xhci_port1>;
+			linux,default-trigger = "usbport";
 		};
 	};
 };
